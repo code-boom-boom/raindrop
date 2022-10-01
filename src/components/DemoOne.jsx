@@ -1,5 +1,6 @@
 import React from 'react'
 import ImagePreloader from './ImagePreloader'
+import RendererOne from './RendererOne'
 
 const DemoOne = () => {
   return (
@@ -32,9 +33,13 @@ const DemoOne = () => {
           </nav>
         </header>
         <div className="slideshow">
-          <canvas width="1" height="1" id="container" />
+          <RendererOne />
           {/*========== Heavy Rain ==========*/}
-          <div className="slide" id="slide-1" data-weather="rain">
+          <div
+            className="slide slide--current"
+            id="slide-1"
+            data-weather="rain"
+          >
             <div className="slide__element slide__element--date">
               Sunday, 24<sup>th</sup> of October 2043
             </div>
