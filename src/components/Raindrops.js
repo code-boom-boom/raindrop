@@ -1,5 +1,7 @@
 import createCanvas from '../helpers/create-canvas'
 
+const dropSize = 64
+
 const defaultOptions = {
   minR: 10,
   maxR: 40,
@@ -30,6 +32,16 @@ class Raindrops {
   dropAlpha = null
   options = null
   canvas = null
+  ctx = null
+  droplets = null
+  dropletsPixelDensity = 1
+  dropletsCtx = null
+  dropletsCounter = 0
+  drops = null
+  dropsGfx = null
+  clearDropletsGfx = null
+  textureCleaningIterations = 0
+  lastRender = null
 
   constructor(width, height, scale, dropAlpha, dropColor, options = {}) {
     this.width = width
@@ -43,6 +55,48 @@ class Raindrops {
 
   init() {
     this.canvas = createCanvas(this.width, this.height)
+    this.ctx = this.canvas.getContext('2d')
+
+    this.droplets = createCanvas(
+      this.width * this.dropletsPixelDensity,
+      this.height * this.dropletsPixelDensity
+    )
+    this.dropletsCtx = this.droplets.getContext('2d')
+
+    this.drops = []
+    this.dropsGfx = []
+
+    this.renderDropsGfx()
+  }
+
+  renderDropsGfx() {
+    const dropBuffer = createCanvas(dropSize, dropSize)
+    const dropBufferCtx = dropBuffer.getContext('2d')
+    this.dropsGfx = Array.apply(null, Array(255)).map(() => {
+      const drop = createCanvas(dropSize, dropSize)
+      // const dropCtx = drop.getContext('2d')
+
+      dropBufferCtx.clearRect(0, 0, dropSize, dropSize)
+
+      // color
+      dropBufferCtx.globalCompositeOperation = 'source-over'
+      dropBufferCtx.drawImage(this.dropColor, 0, 0, dropSize, dropSize)
+
+      // blue overlay, for depth
+      // dropBufferCtx.globalCompositeOperation = 'screen'
+      // dropBufferCtx.fillStyle = 'rgba(0, 0, ' + i + ', 1'
+      // dropBufferCtx.fillRect(0, 0, dropSize, dropSize)
+
+      // alpha
+      return drop
+    })
+
+    this.clearDropletsGfx = createCanvas(128, 128)
+    const clearDropletsCtx = this.clearDropletsGfx.getContext('2d')
+    clearDropletsCtx.fillStyle = '#000'
+    clearDropletsCtx.beginPath()
+    clearDropletsCtx.arc(64, 64, 64, 0, Math.PI * 2)
+    clearDropletsCtx.fill()
   }
 }
 
