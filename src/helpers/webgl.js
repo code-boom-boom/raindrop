@@ -75,6 +75,7 @@ export function createShader(gl, script, type) {
   }
   return shader
 }
+
 export function createTexture(gl, source, i) {
   const texture = gl.createTexture()
   activeTexture(gl, i)

@@ -67,6 +67,9 @@ const RendererOne = () => {
       ]).then((images) => {
         textureRainFg = images.textureRainFg.img
         textureRainBg = images.textureRainBg.img
+
+        dropColor = images.dropColor.img
+        dropAlpha = images.dropAlpha.img
         init()
       })
     }
@@ -93,8 +96,6 @@ const RendererOne = () => {
         dropletsCleaningRadiusMultiplier: 0.28,
       }
     )
-
-    console.log('raindrop: ', raindrops)
 
     textureFg = createCanvas(textureFgSize.width, textureFgSize.height)
     textureFgCtx = textureFg.getContext('2d')

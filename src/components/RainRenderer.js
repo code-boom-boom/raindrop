@@ -53,7 +53,6 @@ class RainRenderer {
   init() {
     this.width = this.canvas.width
     this.height = this.canvas.height
-    console.log(vertShader, fragShader)
     this.gl = new GL(this.canvas, { alpha: false }, vertShader, fragShader)
   }
 }
