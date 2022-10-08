@@ -1,8 +1,6 @@
 import GL from './GL'
-import requireShaderScript from 'glslify'
-
-const vertShader = requireShaderScript('../shaders/simple.vert')
-const fragShader = requireShaderScript('../shaders/water.frag')
+import vertShader from '../shaders/simple.vert.js'
+import fragShader from '../shaders/water.frag.js'
 
 const defaultOptions = {
   renderShadow: false,
